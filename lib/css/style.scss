@@ -1,0 +1,87 @@
+html {
+  box-sizing: border-box;
+}
+
+html, body {
+  height: 100%;
+  width: 100%;
+}
+
+*, *:before, *:after {
+  box-sizing: inherit;
+}
+
+body {
+  font-family: 'Oswald', sans-serif;
+}
+
+h1 {
+  font-size: 100px;
+  padding: 20px;
+}
+
+h2 {
+  padding: 30px;
+}
+
+h3 {
+  padding: 10px;
+}
+
+.SetLocation {
+  margin: 10px 0 5px 30px;
+}
+
+.SetLocation-submit {
+  margin-left: 10px;
+}
+
+.WelcomeMessage {
+  padding: 30px;
+}
+
+.WeatherList {
+  display: flex;
+  flex-direction: row;
+  align-content: space-between;
+  align-items: flex-start;
+  padding-top: 10px;
+}
+
+.DayOverview {
+  width: 200px;
+  margin: 0 20px;
+  padding: 10px;
+  text-align: center;
+  border: 4px solid #008478;
+  border-radius: 15px;
+}
+
+.DayHeader {
+  border-bottom: 1px solid gray;
+  padding: 10px;
+  vertical-align: center;
+}
+
+.DayInfo, .HourlyInfo {
+  padding: 10px;
+}
+
+p {
+  padding: 10px 0;
+}
+
+.DayOverview h3 {
+  display: inline-block;
+  padding-right: 10px;
+}
+
+button {
+  display: inline-block;
+  background: #008478;
+  color: #FFF;
+  border: none;
+  border-radius: 5px;
+  padding: 5px;
+  margin: auto;
+}

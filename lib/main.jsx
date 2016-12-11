@@ -12,16 +12,30 @@ export default class Main extends React.Component {
     };
   }
 
+  componentDidMount(){
+    let storedLocation = localStorage.getItem('location');
+
+    this.setState({
+      location: storedLocation ? storedLocation : ''
+    })
+    this.setState({
+      data: JSON.parse(localStorage.getItem('data'))
+    })
+  }
+
   updateLocation(e) {
     const location = e.target.value;
     this.setState({ location: location });
+    localStorage.setItem('location', location);
   }
 
   setWeatherData(e) {
     e.preventDefault();
     let location = this.state.location;
     $.get('http://weatherly-api.herokuapp.com/api/weather/' + location).then(function(input) {
-      this.setState( {data: input} );
+      let newData = input.slice(0, 7);
+      this.setState( {data: newData} );
+      localStorage.setItem('data', JSON.stringify(newData))
     }.bind(this));
   }
 
@@ -30,7 +44,6 @@ export default class Main extends React.Component {
       <div className='WeatherBox'>
         <h1>Weathrly</h1>
         <section className='SetLocation'>
-          <h2 className='SetLocation-message'></h2>
           <input
             type='text'
             className='SetLocation-input'
@@ -46,22 +59,24 @@ export default class Main extends React.Component {
             }
           >Set Location</button>
         </section>
-        <WeatherInfo data={this.state.data}  />
+        <WeatherInfo data={this.state.data} location={this.state.location}  />
       </div>
     );
   }
 };
 
-const WeatherInfo = ( {data} ) => {
+const WeatherInfo = ( {data}, {location} ) => {
+  let displayLocation = location;
   if (data === null) {
     return (
-      <div>
+      <div className="WelcomeMessage">
         Please enter a location!
       </div>
     )
   } else return (
-    <div className='WeatherList'>
-      <ul>
+    <div>
+      <h2>{displayLocation + "'s 7 Day Forcast"}</h2>
+      <ul className='WeatherList'>
       {data.map((day, index) => {
         return <DayWeather key={index} {...day} />;
       })
@@ -90,17 +105,22 @@ export class DayWeather extends React.Component {
       return (
         <div>
           <section className='DayOverview'>
-            <h2>{ date }</h2>
-            <button
-              className="ShowDetails-button"
-              onClick=
-                {this.showHideDetails.bind(this)
-              }
-            >Show Details</button>
-              <p>{ "Today's Summary: " + weatherType.type + " with a high of " + temp.high + " and a low of " + temp.low + "."}</p>
-            <article className='HighLows'>
-              <h4>{ "Today's high: " + temp.high }</h4>
-              <h4>{ "Today's low: " + temp.low }</h4>
+            <article className='DayHeader'>
+              <h3>{ date }</h3>
+              <button
+                className="ShowDetails-button"
+                onClick=
+                  {this.showHideDetails.bind(this)
+                }
+              >Hourly</button>
+            </article>
+            <article className='DayInfo'>
+              <h4>Today's Forecast: </h4>
+              <p>{ weatherType.type.toUpperCase() + " with a high of " + temp.high + " and a low of " + temp.low + "."}</p>
+              <article className='HighLows'>
+                <h4>{ "Today's high: " + temp.high }</h4>
+                <h4>{ "Today's low: " + temp.low }</h4>
+              </article>
             </article>
           </section>
         </div>
@@ -108,18 +128,23 @@ export class DayWeather extends React.Component {
     } else return (
         <div>
           <section className='DayOverview'>
-            <h2>{ date }</h2>
-            <button
-              className="ShowDetails-button"
-              onClick=
-                {this.showHideDetails.bind(this)
-              }
-            >Show Details</button>
-              <p>{ "Today's Summary: " + weatherType.type + " with a high of " + temp.high + " and a low of " + temp.low + "."}</p>
-            <article className='HighLows'>
-              <h4>{ "Today's high: " + temp.high }</h4>
-              <h4>{ "Today's low: " + temp.low }</h4>
+            <article className='DayHeader'>
+              <h3>{ date }</h3>
+              <button
+                className="ShowDetails-button"
+                onClick=
+                  {this.showHideDetails.bind(this)
+                }
+              >Hourly</button>
+            </article>
+            <article className='DayInfo'>
+              <h4>Today's Forecast: </h4>
+              <p>{ weatherType.type + " with a high of " + temp.high + " and a low of " + temp.low + "."}</p>
+              <article className='HighLows'>
+                <h4>{ "Today's high: " + temp.high }</h4>
+                <h4>{ "Today's low: " + temp.low }</h4>
               <DayDetails {...hourly} display={this.state.showDetails} />
+              </article>
             </article>
           </section>
         </div>
@@ -131,7 +156,7 @@ const DayDetails = (props) => {
   let timeBreakDown = props.timeBreakDown;
   return (
     <div>
-      <aside className='DayDetails'>
+      <aside className='HourlyInfo'>
         <ul>
           {timeBreakDown.map((hour, index) => {
             let value = <HourlyDetails key={index} {...timeBreakDown} />
