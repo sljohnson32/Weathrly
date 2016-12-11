@@ -53,19 +53,17 @@ export default class Main extends React.Component {
 };
 
 const WeatherInfo = ( {data} ) => {
-    if (data === null) {
-      return (
-        <div>
-          Please enter a location!
-        </div>
-      )
-    }
-
-  return (
+  if (data === null) {
+    return (
+      <div>
+        Please enter a location!
+      </div>
+    )
+  } else return (
     <div className='WeatherList'>
       <ul>
-      {data.map((day) => {
-        return <DayWeather key={day.date} {...day} />;
+      {data.map((day, index) => {
+        return <DayWeather key={index} {...day} />;
       })
       }
       </ul>
@@ -87,35 +85,51 @@ export class DayWeather extends React.Component {
 
   render() {
     const { date, hourly, temp, weatherType } = this.props;
-    return (
-      <div>
-        <section className='DayOverview'>
-          <h2>{ date }</h2>
-          <button
-            className="ShowDetails-button"
-            onClick=
-              {this.showHideDetails.bind(this)
-            }
-          >Show Details</button>
-            <p>{ "Today's Summary: " + weatherType.type + " with a high of " + temp.high + " and a low of " + temp.low + "."}</p>
-          <article className='HighLows'>
-            <h4>{ "Today's high: " + temp.high }</h4>
-            <h4>{ "Today's low: " + temp.low }</h4>
-            <DayDetails {...hourly} display={this.state.showDetails} />
-          </article>
-        </section>
-      </div>
-    )
-  }
+
+    if (this.state.showDetails === false) {
+      return (
+        <div>
+          <section className='DayOverview'>
+            <h2>{ date }</h2>
+            <button
+              className="ShowDetails-button"
+              onClick=
+                {this.showHideDetails.bind(this)
+              }
+            >Show Details</button>
+              <p>{ "Today's Summary: " + weatherType.type + " with a high of " + temp.high + " and a low of " + temp.low + "."}</p>
+            <article className='HighLows'>
+              <h4>{ "Today's high: " + temp.high }</h4>
+              <h4>{ "Today's low: " + temp.low }</h4>
+            </article>
+          </section>
+        </div>
+      )
+    } else return (
+        <div>
+          <section className='DayOverview'>
+            <h2>{ date }</h2>
+            <button
+              className="ShowDetails-button"
+              onClick=
+                {this.showHideDetails.bind(this)
+              }
+            >Show Details</button>
+              <p>{ "Today's Summary: " + weatherType.type + " with a high of " + temp.high + " and a low of " + temp.low + "."}</p>
+            <article className='HighLows'>
+              <h4>{ "Today's high: " + temp.high }</h4>
+              <h4>{ "Today's low: " + temp.low }</h4>
+              <DayDetails {...hourly} display={this.state.showDetails} />
+            </article>
+          </section>
+        </div>
+      )
+    }
 }
 
-const DayDetails = (props, display) => {
-  console.log(display);
+const DayDetails = (props) => {
   let timeBreakDown = props.timeBreakDown;
-  let displayStatus = display;
-  if (displayStatus) {
-    return <div></div>
-  } else return (
+  return (
     <div>
       <aside className='DayDetails'>
         <ul>
