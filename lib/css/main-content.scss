@@ -28,9 +28,9 @@ h3 {
   padding: 10px;
 }
 
-
-.WelcomeMessage {
-  padding: 30px;
+.Message-Welcome, .Message-LocationNotFound, .forecastHeader {
+  text-align: center;
+  font-size: 50px;
 }
 
 .extremeWeather {
@@ -56,7 +56,7 @@ h3 {
 }
 
 .DayHeader {
-  border-bottom: 1px solid gray;
+  border-bottom: 1px solid $gray-light;
   padding: 0;
   vertical-align: center;
 }

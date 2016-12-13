@@ -24,8 +24,7 @@ export default class WeatherInfo extends React.Component {
       return (
         <div>
           <section className='forecastHeader'>
-            <h2>{displayLocation + "'s"}</h2>
-            <h3>7 Day Forcast</h3>
+            <h2>{displayLocation + "'S "}7 Day Forcast</h2>
           </section>
           <section className='WeatherList'>
             {data.map((day, index) => {
