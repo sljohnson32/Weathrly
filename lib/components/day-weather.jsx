@@ -47,7 +47,7 @@ export default class DayWeather extends React.Component {
                   {this.showHideDetails.bind(this)
                 }
               >Hourly</button>
-              {extremeWeatherScale > 2 && <this.showExtremeWeather />}
+              { extremeWeatherScale > 2 && <this.showExtremeWeather /> }
               { this.state.showDetails && <DayDetails {...hourly} /> }
             </article>
           </section>
