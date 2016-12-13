@@ -20,17 +20,14 @@ body {
   font-family: $main-font;
 }
 
-h2 {
-  padding: 30px;
-}
-
 h3 {
   padding: 10px;
 }
 
-.Message-Welcome, .Message-LocationNotFound, .forecastHeader {
+.forecastHeader {
   text-align: center;
   font-size: 50px;
+  padding: 40px 0 30px;
 }
 
 .HourContainer {

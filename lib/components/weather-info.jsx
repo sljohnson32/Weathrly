@@ -8,13 +8,13 @@ export default class WeatherInfo extends React.Component {
     let { data, currentLocation } = this.props;
     if (!data) {
       return (
-        <div className="Message-Welcome">
+        <div className="forecastHeader">
           <p>Please enter a location!</p>
         </div>
         )
     } else if (!data.length) {
       return (
-        <div className="Message-LocationNotFound">
+        <div className="forecastHeader">
           <p>Please enter a valid location!</p>
           <img src='lib/img/location-not-found.jpg' className='Img-LocationNotFound' />
         </div>
@@ -24,7 +24,7 @@ export default class WeatherInfo extends React.Component {
       return (
         <div>
           <section className='forecastHeader'>
-            <h2>{displayLocation + "'S "}7 Day Forcast</h2>
+            <h2>{displayLocation + "'S "}7 Day Forecast</h2>
           </section>
           <section className='WeatherList'>
             {data.map((day, index) => {
