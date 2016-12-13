@@ -3,7 +3,7 @@ import getImg from './get-img';
 
 const HourlyDetails = (props) => {
   return (
-    <div>
+    <div className='HourContainer'>
       <h4>{getHour[props.index]}</h4>
       <img src={getImg(props.hour.type)} />
       <h4>{'Temp: ' + props.hour.temp}</h4>
