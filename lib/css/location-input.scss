@@ -1,0 +1,11 @@
+.SetLocation {
+  text-align: center;
+  border: $border-dark;
+  padding: 20px;
+  width: 100%;
+  background-color: $gray-light;
+  input {
+    height: 50px;
+    width: 200px;
+  }
+}

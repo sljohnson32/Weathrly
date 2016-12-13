@@ -1,0 +1,75 @@
+@import 'variables';
+@import 'buttons';
+@import 'header';
+@import 'location-input';
+
+html {
+  box-sizing: border-box;
+}
+
+html, body {
+  height: 100%;
+  width: 100%;
+}
+
+*, *:before, *:after {
+  box-sizing: inherit;
+}
+
+body {
+  font-family: $main-font;
+}
+
+h2 {
+  padding: 30px;
+}
+
+h3 {
+  padding: 10px;
+}
+
+
+.WelcomeMessage {
+  padding: 30px;
+}
+
+.extremeWeather {
+  width: 100%;
+}
+
+.WeatherList {
+  display: flex;
+  flex-direction: row;
+  align-content: space-between;
+  align-items: flex-start;
+  padding-top: 10px;
+}
+
+.DayOverview {
+  width: 210px;
+  min-height: 390px;
+  margin: 0 15px;
+  padding: 15px;
+  text-align: center;
+  border: 4px solid $green;
+  border-radius: 15px;
+}
+
+.DayHeader {
+  border-bottom: 1px solid gray;
+  padding: 0;
+  vertical-align: center;
+}
+
+.DayInfo, .HourlyInfo {
+  padding: 15px;
+}
+
+p {
+  padding: 15px 0;
+}
+
+.DayOverview h3 {
+  display: inline-block;
+  padding-right: 10px;
+}

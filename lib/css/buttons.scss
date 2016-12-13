@@ -1,1 +1,20 @@
-$main-font: 'Oswald', sans-serif;
+button {
+  display: inline-block;
+  background: $blue;
+  color: $white;
+  border: none;
+  border-radius: 5px;
+  padding: 5px;
+  margin: auto;
+
+}
+
+.ShowDetails-button {
+  width: 60px;
+  height: 30px;
+}
+
+.SetLocation-submit {
+  width: 100px;
+  height: 50px;
+}
