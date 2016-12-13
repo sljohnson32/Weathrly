@@ -34,12 +34,14 @@ h3 {
 }
 
 .HourContainer {
-  padding: 20px 0;
   border-top: $border-light
 }
 
-.extremeWeather {
-  width: 100%;
+.ExtremeWeather {
+  padding: 0 0 20px 0;
+  p {
+    padding: 0;
+  }
 }
 
 .WeatherList {
@@ -52,9 +54,10 @@ h3 {
 
 .DayOverview {
   width: 210px;
-  min-height: 390px;
+  min-height: 380px;
   margin: 0 15px;
   padding: 15px;
+  align-content: center;
   text-align: center;
   border: 4px solid $green;
   border-radius: 15px;
@@ -66,12 +69,20 @@ h3 {
   vertical-align: center;
 }
 
-.DayInfo, .HourlyInfo {
-  padding: 15px;
+.DayInfo, .HourContainer {
+  padding: 20px 0;
+  p {
+    font-size: 10px;
+  }
 }
 
-p {
-  padding: 15px 0;
+.DayInfo p {
+  padding-top: 20px;
+}
+
+.HourContainter h4{
+    padding-top: 20px;
+    text-decoration: underline;
 }
 
 .DayOverview h3 {

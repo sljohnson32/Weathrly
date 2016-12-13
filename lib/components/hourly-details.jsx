@@ -6,7 +6,7 @@ const HourlyDetails = (props) => {
     <div className='HourContainer'>
       <h4>{getHour[props.index]}</h4>
       <img src={getImg(props.hour.type)} />
-      <h4>{'Temp: ' + props.hour.temp}</h4>
+      <p>{'Temp: ' + props.hour.temp}</p>
     </div>
   )
 };

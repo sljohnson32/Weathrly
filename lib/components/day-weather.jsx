@@ -33,8 +33,6 @@ export default class DayWeather extends React.Component {
               <h3>{ date }</h3>
             </article>
             <article className='DayInfo'>
-              <h4>Forecast: </h4>
-              {extremeWeatherScale > 2 && <this.showExtremeWeather />}
               <img src={getImg(weatherType.type)} />
               <article className='HighLows'>
                 <h4>{ "High: " + temp.high }</h4>
@@ -49,6 +47,7 @@ export default class DayWeather extends React.Component {
                   {this.showHideDetails.bind(this)
                 }
               >Hourly</button>
+              {extremeWeatherScale > 2 && <this.showExtremeWeather />}
               { this.state.showDetails && <DayDetails {...hourly} /> }
             </article>
           </section>

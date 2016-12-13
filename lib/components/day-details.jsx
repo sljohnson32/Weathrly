@@ -5,7 +5,7 @@ const DayDetails = (props) => {
   let timeBreakDown = props.timeBreakDown;
   return (
     <div>
-      <aside className='HourlyInfo'>
+      <aside>
         <ul>
           {timeBreakDown.map((hour, index) => {
             let newKey = 'hour' + (index + 1);
