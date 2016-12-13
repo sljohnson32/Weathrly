@@ -13,13 +13,8 @@ export default class Main extends React.Component {
   }
 
   componentDidMount(){
-    let storedLocation = localStorage.getItem('location');
-
     this.setState({
-      location: storedLocation ? storedLocation : ''
-    })
-    this.setState({
-      data: JSON.parse(localStorage.getItem('data'))
+      data: JSON.parse(localStorage.getItem('data')),
     })
   }
 
@@ -60,7 +55,7 @@ export default class Main extends React.Component {
             }
           >Set Location</button>
         </section>
-        <WeatherInfo data={this.state.data} currentLocation={this.state.location}  />
+        <WeatherInfo data={this.state.data} currentLocation={this.state.location} />
       </div>
     );
   }
@@ -98,27 +93,38 @@ const getImg = (type) => {
   };
 }
 
-const WeatherInfo = ( props ) => {
-  let { data, currentLocation } = props;
-  let displayLocation = formatLocation(currentLocation);
-  if (data === null) {
-    return (
-      <div className="WelcomeMessage">
-        Please enter a location!
-      </div>
-    )
-  } else return (
-    <div>
-      <h2>{displayLocation + "'s"}</h2>
-      <h3>7 Day Forcast</h3>
-      <ul className='WeatherList'>
-      {data.map((day, index) => {
-        return <DayWeather key={index} {...day} />;
-      })
-      }
-      </ul>
-    </div>
-  );
+export class WeatherInfo extends React.Component {
+
+  render() {
+    let { data, currentLocation } = this.props;
+    if (!data) {
+      return (
+        <div className="Message-Welcome">
+          Please enter a location!
+        </div>
+        )
+    } else if (!data.length) {
+      return (
+        <div className="Message-LocationNotFound">
+          Please enter a valid location!
+        </div>
+        )
+    } else {
+      let displayLocation = formatLocation(data[0].location);
+      return (
+        <div>
+          <h2>{displayLocation + "'s"}</h2>
+          <h3>7 Day Forcast</h3>
+          <ul className='WeatherList'>
+          {data.map((day, index) => {
+            return <DayWeather key={index} {...day} />;
+          })
+          }
+          </ul>
+        </div>
+      );
+    }
+  }
 }
 
 export class DayWeather extends React.Component {
@@ -132,11 +138,9 @@ export class DayWeather extends React.Component {
     this.setState( {showDetails: !this.state.showDetails} )
   }
 
-
   render() {
-    const { date, hourly, temp, weatherType } = this.props;
+    let { date, hourly, temp, weatherType } = this.props;
     let percent = `${Math.round(weatherType.chance * 100)}%`;
-    if (this.state.showDetails === false) {
       return (
         <div>
           <section className='DayOverview'>
@@ -158,35 +162,11 @@ export class DayWeather extends React.Component {
                 {this.showHideDetails.bind(this)
               }
             >Hourly</button>
+            { this.state.showDetails && <DayDetails {...hourly} display={this.state.showDetails} /> }
           </section>
         </div>
       )
-    } else return (
-        <div>
-          <section className='DayOverview'>
-            <article className='DayHeader'>
-              <h3>{ date }</h3>
-            </article>
-            <article className='DayInfo'>
-              <h4>Today's Forecast: </h4>
-              <img src={getImg(weatherType.type)} />
-              <article className='HighLows'>
-                <h4>{ "High: " + temp.high }</h4>
-                <h4>{ "Low: " + temp.low }</h4>
-              </article>
-              <p>{weatherType.type.toUpperCase() + " (" + percent + ") " + " with a high of " + temp.high + " and a low of " + temp.low + "."}</p>
-            </article>
-            <button
-            className="ShowDetails-button"
-            onClick=
-            {this.showHideDetails.bind(this)
-            }
-            >Hourly</button>
-            <DayDetails {...hourly} display={this.state.showDetails} />
-          </section>
-        </div>
-      )
-    }
+  }
 }
 
 const DayDetails = (props) => {
@@ -196,7 +176,8 @@ const DayDetails = (props) => {
       <aside className='HourlyInfo'>
         <ul>
           {timeBreakDown.map((hour, index) => {
-            let value = <HourlyDetails key={index} {...timeBreakDown} />
+            let newKey = 'hour' + (index + 1);
+            let value = <HourlyDetails key={index} index={index} hour={hour[newKey]} />
             return value;
           })}
         </ul>
@@ -205,19 +186,43 @@ const DayDetails = (props) => {
   )
 }
 
-const HourlyDetails = (props) => {
-  let hourKeys = Object.keys(props);
-  let hourlyArray = hourKeys.map((key) => { props[key] });
-  hourlyArray.forEach((weather, index) => {
-    let newKey = 'hour' + (index + 1);
-    console.log(weather[newKey]);
-    // return (
-    //   <div>
-    //     <img src={getImg(weather[newKey].type)} />
-    //     <h4>{'Temp: ' + weather[newKey]}</h4>
-    //   </div>
-    // )
-  });
+const getHour = {
+  0: '12am',
+  1: '1am',
+  2: '2am',
+  3: '3am',
+  4: '4am',
+  5: '5am',
+  6: '6am',
+  7: '7am',
+  8: '8am',
+  9: '9am',
+  10: '10am',
+  11: '11am',
+  12: '12pm',
+  13: '1pm',
+  14: '2pm',
+  15: '3pm',
+  16: '4pm',
+  17: '5pm',
+  18: '6pm',
+  19: '7pm',
+  20: '8pm',
+  21: '9pm',
+  22: '10pm',
+  23: '11pm'
 }
+
+const HourlyDetails = (props) => {
+  debugger;
+  return (
+    <div>
+      <h4>{getHour[props.index]}</h4>
+      <img src={getImg(props.hour.type)} />
+      <h4>{'Temp: ' + props.hour.temp}</h4>
+    </div>
+  )
+};
+
 
 ReactDOM.render(<Main />, document.getElementById('app'));

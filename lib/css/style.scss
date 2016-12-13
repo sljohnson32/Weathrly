@@ -1,10 +1,10 @@
-@import 'buttons';
-@import 'colors';
-@import 'weather-card';
-@import 'header';
-@import 'hourly-weather-card';
-@import 'location-input';
-@import 'reset'
+// @import 'buttons';
+// @import 'colors';
+// @import 'weather-card';
+// @import 'header';
+// @import 'hourly-weather-card';
+// @import 'location-input';
+// @import 'reset'
 
 html {
   box-sizing: border-box;
@@ -57,9 +57,10 @@ h3 {
 }
 
 .DayOverview {
-  width: 200px;
-  margin: 0 20px;
-  padding: 10px;
+  width: 210px;
+  min-height: 380px;
+  margin: 0 15px;
+  padding: 15px;
   text-align: center;
   border: 4px solid #008478;
   border-radius: 15px;
@@ -67,16 +68,16 @@ h3 {
 
 .DayHeader {
   border-bottom: 1px solid gray;
-  padding: 10px;
+  padding: 0;
   vertical-align: center;
 }
 
 .DayInfo, .HourlyInfo {
-  padding: 10px;
+  padding: 15px;
 }
 
 p {
-  padding: 10px 0;
+  padding: 15px 0;
 }
 
 .DayOverview h3 {
