@@ -17,7 +17,7 @@ export default class DayWeather extends React.Component {
     return (
       <div className='ExtremeWeather'>
         <img src='lib/img/extreme-weather.png' />
-        <p>Extreme weather</p>
+        <p>Extreme Weather</p>
       </div>
     )
   }
